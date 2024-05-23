@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: bisque;
+}
+
+.container {
+    text-align: center;
+}
+
+#resumeContainer {
+    margin: 20px 0;
+}
+
+#resumeImage {
+    background-color: black;
+    height: 70vh;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+}
