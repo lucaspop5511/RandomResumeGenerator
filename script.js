@@ -1,20 +1,18 @@
 const resumeCount = 10;
-let remainingIndices = Array.from({ length: resumeCount }, (_, i) => i);
-let currentResumeIndex = -1;
+let remainingIndices = [...Array(resumeCount).keys()];
 
 function getRandomIndex() {
-    if (remainingIndices.length === 0) {
-        remainingIndices = Array.from({ length: resumeCount }, (_, i) => i);
+    if (!remainingIndices.length) {
+        remainingIndices = [...Array(resumeCount).keys()];
     }
     const randomIndex = Math.floor(Math.random() * remainingIndices.length);
-    const index = remainingIndices.splice(randomIndex, 1)[0];
-    return index;
+    return remainingIndices.splice(randomIndex, 1)[0];
 }
 
 document.getElementById('generateButton').addEventListener('click', () => {
     const resumeImage = document.getElementById('resumeImage');
-    currentResumeIndex = getRandomIndex();
-    resumeImage.src = `RandomResumes/${currentResumeIndex + 1}.svg`;
+    const index = getRandomIndex();
+    resumeImage.src = `RandomResumes/${index + 1}.svg`;
 });
 
 document.getElementById('downloadButton').addEventListener('click', () => {
@@ -22,7 +20,5 @@ document.getElementById('downloadButton').addEventListener('click', () => {
     const link = document.createElement('a');
     link.href = resumeImage.src;
     link.download = resumeImage.src.split('/').pop();
-    document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
 });
