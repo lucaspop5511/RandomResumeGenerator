@@ -21,35 +21,67 @@ body {
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 0;
+    margin: 0;
 }
 
 .background-text .line1,
 .background-text .line2 {
-    font-size: calc(13vw + 12vh);
+    font-size: calc(13vw + 13vh);
     line-height: 1;
     opacity: 0.1;
 }
 
 .background-text .line3 {
-    font-size: calc(12vw + 10vh);
+    font-size: calc(12vw + 12vh);
     line-height: 1;
     opacity: 0.1;
+    margin-bottom: 1.5vh;
 }
 
 .background-text .line1,
 .background-text .line3 {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Labrada';
 }
 
 .background-text .line2 {
     font-family: 'Georgia', serif;
     letter-spacing: 1.7vw;
-    ;
+}
+
+.ellipse-mask {
+    position: absolute;
+    top: 45%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+    width: 16vw;
+    height: 16vw;
+    background-color: rgb(180, 162, 162);
+    border-radius: 50%;
+    z-index: 1;
+    mix-blend-mode: color-burn;
+    transition: all 3s ease-in-out;
+}
+
+.ellipse-mask:hover {
+    transform: translate(-50%, -50%) scale(5);
+    mix-blend-mode: color-burn;
+}
+
+.ellipse-mask::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    mix-blend-mode: screen;
 }
 
 .container {
     text-align: center;
-    z-index: 1;
+    z-index: 2;
 }
 
 .button-group {
@@ -59,7 +91,7 @@ body {
 
 #resumeContainer {
     position: relative;
-    margin: 20px 0;
+    margin: 3vh 0;
 }
 
 #resumeImage {
@@ -96,12 +128,12 @@ button {
     background-color: rgb(224, 193, 155);
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 1.5vh 3vw;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    font-size: 3vh;
+    margin: 0 .5vw;
     cursor: pointer;
     border-radius: 12px;
     transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.5s ease;
@@ -119,11 +151,11 @@ button:active {
 
 .icon-button {
     padding: 10px;
-    font-size: 18px;
-    width: 50px;
-    height: 50px;
+    font-size: 3.5vh;
+    width: 6.5vh;
+    height: 6.5vh;
     border-radius: 8px;
-    margin-left: 15px;
+    margin-left: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,4 +169,19 @@ button:active {
     background-color: rgb(193, 163, 126);
     transform: translateY(4px);
     box-shadow: 4px 6px rgb(137, 114, 87, 0.5) inset;
+}
+
+@font-face {
+    font-family: Chakra;
+    src: url(Fonts/Chakra/Bold.ttf);
+}
+
+@font-face {
+    font-family: Labrada;
+    src: url(Fonts/Labrada/Regular.ttf);
+}
+
+@font-face {
+    font-family: Ysabeau;
+    src: url(Fonts/Ysabeau/Regular.ttf);
 }

@@ -84,3 +84,24 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeImage.src = initialResumeSrc;
     magnifierImage.src = initialResumeSrc;
 });
+
+// Function to generate a random RGB color
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 106);
+    const g = Math.floor(Math.random() * 156);
+    const b = Math.floor(Math.random() * 156);
+    return `rgb(${r},${g},${b})`;
+}
+
+// Apply random color to the ellipse mask on hover and revert to original color on mouseout
+const ellipseMask = document.querySelector('.ellipse-mask');
+const originalColor = getComputedStyle(ellipseMask).backgroundColor;
+
+ellipseMask.addEventListener('mouseover', () => {
+    const randomColor = getRandomColor();
+    ellipseMask.style.backgroundColor = randomColor;
+});
+
+ellipseMask.addEventListener('mouseout', () => {
+    ellipseMask.style.backgroundColor = originalColor;
+});
