@@ -1,6 +1,9 @@
 const resumeCount = 10;
 let remainingIndices = [...Array(resumeCount).keys()];
 
+// Initialize magnifier image with the first resume
+const initialResumeSrc = 'RandomResumes/1.svg';
+
 function getRandomIndex() {
     if (!remainingIndices.length) {
         remainingIndices = [...Array(resumeCount).keys()];
@@ -13,6 +16,7 @@ document.getElementById('generateButton').addEventListener('click', () => {
     const resumeImage = document.getElementById('resumeImage');
     const index = getRandomIndex();
     resumeImage.src = `RandomResumes/${index + 1}.svg`;
+    magnifierImage.src = `RandomResumes/${index + 1}.svg`;
 });
 
 document.getElementById('downloadButton').addEventListener('click', () => {
@@ -30,14 +34,17 @@ magnifier.classList.add('magnifier');
 resumeContainer.appendChild(magnifier);
 
 const magnifierImage = document.createElement('img');
+magnifierImage.src = initialResumeSrc; // Set initial src for the magnifier image
 magnifier.appendChild(magnifierImage);
 
 toggleButton.addEventListener('click', () => {
     toggleButton.classList.toggle('active');
     if (toggleButton.classList.contains('active')) {
         magnifier.style.display = 'block';
+        document.body.classList.add('magnifying');
     } else {
         magnifier.style.display = 'none';
+        document.body.classList.remove('magnifying');
     }
 });
 
@@ -47,11 +54,17 @@ resumeContainer.addEventListener('mousemove', (e) => {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        magnifier.style.left = `${x - magnifier.offsetWidth / 2}px`;
-        magnifier.style.top = `${y - magnifier.offsetHeight / 2}px`;
+        const magnifierWidth = magnifier.offsetWidth;
+        const magnifierHeight = magnifier.offsetHeight;
 
-        magnifierImage.style.left = `-${x * 2 - magnifier.offsetWidth / 2}px`;
-        magnifierImage.style.top = `-${y * 2 - magnifier.offsetHeight / 2}px`;
+        magnifier.style.left = `${x - magnifierWidth / 2}px`;
+        magnifier.style.top = `${y - magnifierHeight / 2}px`;
+
+        const offsetX = x / rect.width * magnifierImage.width - magnifierWidth / 2;
+        const offsetY = y / rect.height * magnifierImage.height - magnifierHeight / 2;
+
+        magnifierImage.style.left = `${-Math.max(0, Math.min(magnifierImage.width - magnifierWidth, offsetX))}px`;
+        magnifierImage.style.top = `${-Math.max(0, Math.min(magnifierImage.height - magnifierHeight, offsetY))}px`;
     }
 });
 
@@ -65,9 +78,9 @@ resumeContainer.addEventListener('mouseleave', () => {
     magnifier.style.display = 'none';
 });
 
-document.getElementById('generateButton').addEventListener('click', () => {
+// Ensure the magnifier works with the initial resume on page load
+document.addEventListener('DOMContentLoaded', () => {
     const resumeImage = document.getElementById('resumeImage');
-    const index = getRandomIndex();
-    resumeImage.src = `RandomResumes/${index + 1}.svg`;
-    magnifierImage.src = `RandomResumes/${index + 1}.svg`;
+    resumeImage.src = initialResumeSrc;
+    magnifierImage.src = initialResumeSrc;
 });

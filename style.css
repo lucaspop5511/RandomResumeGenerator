@@ -87,8 +87,8 @@ body {
 
 .magnifier img {
     position: absolute;
-    transform: scale(1.2);
-    transform-origin: top left;
+    transform: scale(1.01);
+    transform-origin: center;
     pointer-events: none;
 }
 
